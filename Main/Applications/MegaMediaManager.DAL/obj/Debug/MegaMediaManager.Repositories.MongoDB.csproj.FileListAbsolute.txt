@@ -1,0 +1,1 @@
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\obj\Debug\MegaMediaManager.Repositories.MongoDB.csprojResolveAssemblyReference.cache

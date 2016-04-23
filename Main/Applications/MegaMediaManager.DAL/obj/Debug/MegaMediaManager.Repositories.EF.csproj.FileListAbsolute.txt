@@ -1,0 +1,16 @@
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MegaMediaManager.Repositories.MongoDB.dll.config
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MegaMediaManager.Repositories.MongoDB.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MegaMediaManager.Repositories.MongoDB.pdb
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\EntityFramework.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\EntityFramework.SqlServer.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\Infrastructure.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MegaMediaManager.Model.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MySql.Data.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MySql.Data.Entity.EF6.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\Infrastructure.pdb
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\MegaMediaManager.Model.pdb
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\EntityFramework.xml
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\bin\Debug\EntityFramework.SqlServer.xml
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\obj\Debug\MegaMediaManager.Repositories.EF.csprojResolveAssemblyReference.cache
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\obj\Debug\MegaMediaManager.Repositories.MongoDB.dll
+F:\VSProjects\MegaMediaManager\Main\Applications\MegaMediaManager.Repositories.MongoDB\obj\Debug\MegaMediaManager.Repositories.MongoDB.pdb
