@@ -1,0 +1,271 @@
+using System;
+using System.Threading;
+
+using Quartz;
+using Quartz.Impl;
+
+namespace ConsoleApplication1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            try
+            {
+                Common.Logging.LogManager.Adapter = new Common.Logging.Simple.ConsoleOutLoggerFactoryAdapter { Level = Common.Logging.LogLevel.Info };
+
+                IScheduler scheduler = StdSchedulerFactory.GetDefaultScheduler();
+
+                scheduler.Start();
+
+                // define the job and tie it to our HelloJob class
+                IJobDetail job = JobBuilder.Create<ApplyChangesJob>()
+                    .WithIdentity("ApplyChanges", "group1")
+                    .Build();
+
+                // Trigger the job to run at midnight everyday
+                ITrigger trigger = TriggerBuilder.Create()
+                    .WithIdentity("trigger1", "group1")
+                    .WithCronSchedule("0 0 0 * * * ")
+                    .ForJob("ApplyChanges, group1")
+                    .Build();
+
+                scheduler.ScheduleJob(job, trigger);
+
+                // and last shut down the scheduler when you are ready to close your program
+                scheduler.Shutdown();
+            }
+            catch (SchedulerException se)
+            {
+                Console.WriteLine(se);
+            }
+
+            Console.WriteLine("Press any key to close the application");
+            Console.ReadKey();
+        }
+    }
+
+    public class MovieLoadLog
+    {
+        public int Id { get; set; }
+        public int MovieId { get; set; }
+        public LoadStatus LoadStatus { get; set; }
+        //create date
+        //update date
+    }
+
+    public enum LoadStatus { ADDED, FAILED, NOEXIST }
+
+    //Cron job that starts at ?? time and runs every 10 seconds for an hour (job finishes when it executes 40 requests and times out)
+    public class LoadMoviesJob : IJob
+    {
+        public void Execute(IJobExecutionContext context)
+        {
+            //index = last row + 1 in movie_load_log_t
+            //latestid = Call movie/latest to get the latest movie id
+            
+            //while(index < latestId) 
+                //call movie/index
+                //if status is request limit reached
+                    //end job
+                //else 
+                    //add the movie
+        }
+    }
+
+    public class ApplyChangesJob : IJob
+    {
+        public void Execute(IJobExecutionContext context)
+        {
+            //int count; //this is pages returned
+            //for(int i = 1, count = 1000; i <= count; i++) //do this with each page of changes
+
+                //Call movie/changes for page i to get a list of all changes in the last 24 hours -- might have to specify state/end date for this
+                //Populate the paging from this query then
+                //Map items to list<change> -- exclude items where adult = "true", don't want to waste my time with adult movies... maybe... think about this more
+
+                //count = movie.TotalPages; //update the total after the first call; if it's 1 totalpage then this is the only loop
+
+                //Foreach item in the list, call movie/id/changes to get the list of changes
+                    //Map to list<changeitem>
+                
+                //Foreach changeitem in the list
+                    //If the movie is already in the database then loop through its change items
+                        //item.Action == added
+                            //update the column or add the item to a table if something like genre or keyword
+                        //item.Action == Added
+                            //add the movie
+                        //item.Action == updated
+                            //update the column/other table row
+                        //item.Action == deleted
+                            //empty the column or delete the other table row
+
+                        //if the action was successful then update the Applied to true
+                        //save the change item in the database
+                    //else
+                        //Add movie
+                        //Mark all changes as Applied (or loop through all changes and double check maybe?)
+        }
+    }
+
+    /*
+    public class PersonChange : Change
+    {
+     * [JsonIgnore]
+     * public int PersonId { get; set; }
+    }
+     * 
+    public class MovieChange : Change
+    {
+     * [JsonIgnore]
+     * public int MovieId { get; set; }
+    }
+    
+     * //Not database table
+    public class ChangeContainer
+    {
+        public List<Change> { get; set; }
+     
+        public int Page { get; set; }
+     * 
+     * [JsonProperty("total_pages")]
+        public int TotalPages { get; set; }
+    }
+
+    public class Change
+    {
+     * [JsonProperty("key")]
+       public string key { get; set; }
+     * 
+     * [JsonProperty("items")]
+     * public List<ChangeItem> ChangeItems { get; set; }
+     * 
+     * [JsonIgnore]
+     * public bool Applied { get; set; }
+    }
+    
+    public class ChangeItem
+    {
+     * [JsonProperty("action")]
+     * public Action Acton { get; set; }
+     * 
+     * [JsonProperty("time")]
+       [JsonConverter(typeof(TmdbUtcTimeConverter))]
+     * public DateTime Time { get; set; }
+     * 
+       [JsonProperty("iso_639_1")]
+       public string Iso_639_1 { get; set; }
+     * 
+     * //This is used when action is updated or deleted
+     * [JsonProperty("original_value")]
+     * public string OriginalValue { get; set; }
+     * 
+       //This will be the type of whatever the key column type is. It will have similar columns and de-serializing methods.
+     * [JsonProperty("value")]
+     * public object Value { get; set; }
+     * 
+     * [JsonIgnore]
+     * public bool Applied { get; set; }
+    }
+     * 
+    public enum Action { added, created, deleted, updated };
+    */
+
+    /***************************************************************/
+    /*                  Release Dates                              */
+    /***************************************************************/
+    /*
+     * //certification/movie/list
+     * 
+     *  Will need a special parser for this the certifications come in as
+     *  
+     * "certifications": {
+        "AU": [
+          {
+            "certification": "E",
+            "meaning": "xxxx",
+            "order": 1
+          }
+     *   ]
+     *  }
+     * 
+     * 
+    public class Certification
+     * {
+     *      [Key, Column(Order = 0)]
+     *      [JsonProperty("")]
+     *      public Country CountryCd { get; set; }
+     *      
+     *      [Key, Column(Order = 1)]
+     *      [JsonProperty("certification")]
+     *      public string Certification {get; set;}
+     * 
+     *      [JsonProperty("meaning")]
+     *      public string Meaning { get; set; }
+     *      
+     *      [JsonProperty("order")]
+     *      public int Order { get; set; }
+     *      
+     * }
+     * 
+     * 
+     public enum ReleaseType { PREMIERE = 1, [Description("Theatrical (limited)")]THREATRICAL_LIM, THEATRICAL, DIGITAL, PHYSICAL, TV };
+     
+     "id": 550,
+      "results": [
+        {
+          "iso_3166_1": "ES",
+          "release_dates": [
+            {
+              "certification": "",
+              "iso_639_1": "",
+              "note": "",
+              "release_date": "1999-11-05T00:00:00.000Z",
+              "type": 3
+            }
+          ]
+        },
+     
+     //Get key "results"
+     //
+     //On Movie class, add:
+     // public virtual List<ReleaseDate> ReleaseDates { get; set; }
+     //
+     // Movie release date key = custom - OR - US release date - OR - earliest release date
+     public class ReleaseDate : DomainEntity<int>
+     {
+     * //FK
+     * public int MovieId { get; set; }
+     * 
+     * [JsonProperty("iso_3166_1")]
+     * [ForeignKey("Category"), Column(Order = 0)]
+        public Country CountryCd { get; set; }
+     * 
+     * [JsonProperty("certification")]
+     * [ForeignKey("Category"), Column(Order = 1)]
+        public Certification Certification
+        
+     * [JsonProperty("iso_639_1")]
+     *  public Language LanguageCd { get; set; }
+     *  
+     * [JsonProperty("note")]
+     *  public string Note { get; set; }
+     *  
+     * [JsonProperty("release_date")]
+        [JsonConverter(typeof(IsoDateTimeConverter))]
+     *  public DateTime ReleaseDate { get; set; }
+     *  
+     * [JsonProperty("type")]
+     * public ReleaseType Type { get; set; }
+     * 
+     * [JsonIgnore]
+     * public bool OriginalReleaseDate { get; set; }
+     * 
+       #region Navigation Properties
+       public virtual Movie Movie { get; set; }
+       #endregion Navigation Properties
+     }
+     */
+
+
+}

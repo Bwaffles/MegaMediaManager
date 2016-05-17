@@ -54,6 +54,7 @@ namespace MegaMediaManager.DAL
             #region Model Configurations
             modelBuilder.Configurations.Add(new AlternativeNameConfiguration());
             modelBuilder.Configurations.Add(new AlternativeTitleConfiguration());
+            modelBuilder.Configurations.Add(new CountryConfiguration());
             modelBuilder.Configurations.Add(new CreditConfiguration());
             modelBuilder.Configurations.Add(new DepartmentConfiguration());
             modelBuilder.Configurations.Add(new GenreConfiguration());
