@@ -10,8 +10,12 @@ using System.Threading.Tasks;
 
 namespace MegaMediaManager.Model
 {
-    public class User : IdentityUser
+    public class User : IdentityUser, IDateTracking
     {
+        public DateTime DateCreated { get; set; }
+
+        public DateTime DateModified { get; set; }
+        
         #region Navigation Properties
         public virtual ICollection<UserMovie> UserMovies { get; set; }
         #endregion

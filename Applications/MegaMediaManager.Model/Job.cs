@@ -7,15 +7,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMediaManager.Model
 {
-    public class Job : ValueObject<Job>
+    public class Job : ValueObject<Job>, IDateTracking
     {
-        [JsonProperty("job")]
-        public string Name;
+        [Key]
+        //[JsonProperty("job")]
+        public string Name { get; set; }
 
-        public int DepartmentName;
+        [Required]
+        public string DepartmentName { get; set; }
 
-        [ForeignKey("DepartmentName")]
-        public Department Department;
+        [JsonIgnore]
+        public DateTime DateCreated { get; set; }
+
+        [JsonIgnore]
+        public DateTime DateModified { get; set; }
+        
+
+        public virtual Department Department { get; set; }
 
         #region Methods
         public override IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

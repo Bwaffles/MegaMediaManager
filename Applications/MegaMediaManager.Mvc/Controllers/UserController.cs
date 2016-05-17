@@ -59,7 +59,7 @@ namespace MegaMediaManager.Mvc.Controllers
         {
             try
             {
-                // TODO: Add update logic here
+                // TODO: AddFromAPI update logic here
 
                 return RedirectToAction("Index");
             }

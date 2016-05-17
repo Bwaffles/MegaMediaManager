@@ -25,7 +25,7 @@
 
 //        public Task CreateAsync(User user)
 //        {
-//            var user = await database.Users.Add(user);
+//            var user = await database.Users.AddFromAPI(user);
 //            return user;
 //        }
 //        public Task UpdateAsync(User user)

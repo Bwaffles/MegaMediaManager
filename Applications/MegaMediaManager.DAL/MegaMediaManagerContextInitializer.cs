@@ -8,7 +8,8 @@ namespace MegaMediaManager.DAL
         {
             if (dropDatabaseIfModelChanges)
             {
-                Database.SetInitializer(new MyDropCreateDatabaseIfModelChanges());
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<MegaMediaManagerContext, Configuration>("MegaMediaManagerContext"));
+                //Database.SetInitializer(new MyDropCreateDatabaseIfModelChanges());
                 using (var db = MegaMediaManagerContext.Create())
                     db.Database.Initialize(false);
             }

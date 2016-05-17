@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MegaMediaManager.Model
 {
-    public class ProductionCompany : DomainEntity<int>
+    public class ProductionCompany : DomainEntity<int>, IDateTracking
     {
         [JsonProperty("description")]
         public string Description;
@@ -28,6 +28,13 @@ namespace MegaMediaManager.Model
         //parent_company_id in db
         [JsonProperty("parent_company")]
         public int ParentCompanyId;
+
+        [JsonIgnore]
+        public DateTime DateCreated { get; set; }
+
+        [JsonIgnore]
+        public DateTime DateModified { get; set; }
+        
 
         #region Navigation Properties
         [JsonProperty("parent_company")]

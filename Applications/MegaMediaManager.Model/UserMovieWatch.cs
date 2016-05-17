@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MegaMediaManager.Model
 {
-    public class UserMovieWatch : DomainEntity<int>
+    public class UserMovieWatch : DomainEntity<int>, IDateTracking
     {
         #region Foreign Keys
         public int UserMovieId { get; set; }
@@ -19,6 +19,11 @@ namespace MegaMediaManager.Model
         public string ReviewTitle { get; set; 
         }
         //watch_dt
+
+        public DateTime DateCreated { get; set; }
+
+        public DateTime DateModified { get; set; }
+        
 
         #region Navigation Properties
         public virtual UserMovie UserMovie { get; set; }

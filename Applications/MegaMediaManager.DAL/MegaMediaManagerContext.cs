@@ -1,4 +1,4 @@
-﻿using MegaMediaManager.DAL.Configuration;
+﻿using MegaMediaManager.DAL.TypeConfiguration;
 using Infrastructure;
 using MegaMediaManager.Model;
 using System;
@@ -12,6 +12,7 @@ using System.Data.Entity.Validation;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Diagnostics;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Linq;
 
 namespace MegaMediaManager.DAL
 {
@@ -26,31 +27,74 @@ namespace MegaMediaManager.DAL
         {
             return new MegaMediaManagerContext();
         }
+
         #region Entity Sets
+        public DbSet<AlternativeName> AlternativeName { get; set; }
+        public DbSet<Credit> Credit { get; set; }
+        public DbSet<Department> Department { get; set; }
+        public DbSet<Genre> Genre { get; set; }
+        public DbSet<Job> Job { get; set; }
+        public DbSet<Keyword> Keyword { get; set; }
+        public DbSet<Language> Language { get; set; }
+        public DbSet<Movie> Movie { get; set; }
+        public DbSet<MovieGenre> MovieGenre { get; set; }
+        public DbSet<Person> Person { get; set; }
+        public DbSet<MovieKeyword> MovieKeyword { get; set; }
+        public DbSet<ReviewType> ReviewType { get; set; }
+        public DbSet<SpokenLanguage> SpokenLanguages { get; set; }
         public DbSet<UserMovie> UserMovie { get; set; }
         public DbSet<UserMovieWatch> UserMovieWatch { get; set; }
-        public DbSet<UserMovieWatchReview> UserMovieWatchRating { get; set; }
-        public DbSet<ReviewType> RatingType { get; set; }
-        public DbSet<Movie> Movie { get; set; }
+        public DbSet<UserMovieWatchReview> UserMovieWatchReview { get; set; }
         #endregion
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             #region Model Configurations
+            modelBuilder.Configurations.Add(new AlternativeNameConfiguration());
+            modelBuilder.Configurations.Add(new AlternativeTitleConfiguration());
+            modelBuilder.Configurations.Add(new CreditConfiguration());
+            modelBuilder.Configurations.Add(new DepartmentConfiguration());
+            modelBuilder.Configurations.Add(new GenreConfiguration());
+            modelBuilder.Configurations.Add(new JobConfiguration());
+            modelBuilder.Configurations.Add(new KeywordConfiguration());
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new UserMovieConfiguration());
             modelBuilder.Configurations.Add(new UserMovieWatchConfiguration());
             modelBuilder.Configurations.Add(new UserMovieWatchReviewConfiguration());
-            modelBuilder.Configurations.Add(new RatingTypeConfiguration());
+            modelBuilder.Configurations.Add(new ReviewTypeConfiguration());
+            modelBuilder.Configurations.Add(new LanguageConfiguration());
+            modelBuilder.Configurations.Add(new MovieConfiguration());
+            modelBuilder.Configurations.Add(new SpokenLanguageConfiguration());
+            modelBuilder.Configurations.Add(new MovieGenreConfiguration());
+            modelBuilder.Configurations.Add(new MovieKeywordConfiguration());
+            modelBuilder.Configurations.Add(new PersonConfiguration());
             #endregion
         }
 
         public override System.Threading.Tasks.Task<int> SaveChangesAsync()
         {
-            try { return base.SaveChangesAsync(); }
-            catch(DbEntityValidationException e)
+            try
+            {
+                var modified = ChangeTracker.Entries().Where(
+                e => e.State == EntityState.Modified || e.State == EntityState.Added);
+
+                foreach (DbEntityEntry item in modified)
+                {
+                    var changedOrAddedItem = item.Entity as IDateTracking;
+                    if (changedOrAddedItem != null)
+                    {
+                        if (item.State == EntityState.Added)
+                        {
+                            changedOrAddedItem.DateCreated = DateTime.Now;
+                        }
+                        changedOrAddedItem.DateModified = DateTime.Now;
+                    }
+                }
+                return base.SaveChangesAsync();
+            }
+            catch (DbEntityValidationException e)
             {
                 throw CreateModelValidationException(e);
             }
@@ -58,7 +102,25 @@ namespace MegaMediaManager.DAL
 
         public override int SaveChanges()
         {
-            try { return base.SaveChanges(); }
+            try
+            {
+                var modified = ChangeTracker.Entries().Where(
+            e => e.State == EntityState.Modified || e.State == EntityState.Added);
+
+                foreach (DbEntityEntry item in modified)
+                {
+                    var changedOrAddedItem = item.Entity as IDateTracking;
+                    if (changedOrAddedItem != null)
+                    {
+                        if (item.State == EntityState.Added)
+                        {
+                            changedOrAddedItem.DateCreated = DateTime.Now;
+                        }
+                        changedOrAddedItem.DateModified = DateTime.Now;
+                    }
+                }
+                return base.SaveChanges();
+            }
             catch (DbEntityValidationException entityException)
             {
                 throw CreateModelValidationException(entityException);

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMediaManager.Model
 {
-    public class UserMovie : DomainEntity<int>
+    public class UserMovie : DomainEntity<int>, IDateTracking
     {
         #region Foreign Keys
         public string UserId { get; set; }
@@ -17,6 +17,11 @@ namespace MegaMediaManager.Model
 
         [Range(1, 10)]
         public int Hype { get; set; }
+
+        public DateTime DateCreated { get; set; }
+
+        public DateTime DateModified { get; set; }
+        
 
         #region Navigation Properties
         public virtual User User { get; set; }

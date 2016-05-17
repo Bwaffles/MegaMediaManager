@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Infrastructure
 {
     public abstract class DomainEntity<T> : IValidatableObject
@@ -12,6 +12,7 @@ namespace Infrastructure
         /// <summary> 
         /// Gets or sets the unique ID of the entity in the underlying data store. 
         /// </summary> 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public T Id { get; set; }
 
         /// <summary> 
