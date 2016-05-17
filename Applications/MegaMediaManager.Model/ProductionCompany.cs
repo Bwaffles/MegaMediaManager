@@ -10,24 +10,31 @@ namespace MegaMediaManager.Model
 {
     public class ProductionCompany : DomainEntity<int>, IDateTracking
     {
+        //  "description": null,
+        //  "headquarters": "San Francisco, California",
+        //  "homepage": "http://www.lucasfilm.com",
+        //  "id": 1,
+        //  "logo_path": "/8rUnVMVZjlmQsJ45UGotD0Uznxj.png",
+        //  "name": "Lucasfilm",
+        //  "parent_company": null
+
         [JsonProperty("description")]
-        public string Description;
+        public string Description { get; set; }
 
         [JsonProperty("headquarters")]
-        public string HeadQuarters;
+        public string HeadQuarters { get; set; }
         
         [JsonProperty("homepage")]
-        public string Homepage;
+        public string Homepage { get; set; }
 
         [JsonProperty("logo_path")]
-        public string LogoPath;
+        public string LogoPath { get; set; }
 
         [JsonProperty("name")]
-        public string Name;
+        public string Name { get; set; }
 
-        //parent_company_id in db
         [JsonProperty("parent_company")]
-        public int ParentCompanyId;
+        public int ParentCompanyId { get; set; }
 
         [JsonIgnore]
         public DateTime DateCreated { get; set; }
@@ -35,10 +42,11 @@ namespace MegaMediaManager.Model
         [JsonIgnore]
         public DateTime DateModified { get; set; }
         
-
         #region Navigation Properties
-        [JsonProperty("parent_company")]
-        public ProductionCompany ParentCompany;
+        [ForeignKey("ParentCompanyId")]
+        public virtual ProductionCompany ParentCompany { get; set; }
+        
+        public virtual List<MovieProductionCompany> MovieProductionCompanies { get; set; }
         #endregion
 
         #region Methods
