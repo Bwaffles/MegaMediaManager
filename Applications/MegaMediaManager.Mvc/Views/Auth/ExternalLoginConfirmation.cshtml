@@ -1,0 +1,32 @@
+﻿@model MegaMediaManager.Mvc.Models.ExternalLoginConfirmationViewModel
+
+<h2 class="ui header">Register</h2>
+
+<div class="ui one column centered grid">
+    <div class="ui tertiary compact segment">
+        @using (Html.BeginForm("ExternalLoginConfirmation", "Auth", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "ui form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true)
+            <p class="text-info">
+                You've successfully authenticated with <strong>@ViewBag.LoginProvider</strong>.
+                Please enter a user name for this site below and click the Register button to finish
+                logging in.
+            </p>
+            <div class="row">
+                <div class="ui left icon input">
+                    <i class="fa fa-user icon"></i>
+                    @Html.TextBoxFor(model => model.UserName, new { @name = "Username", @placeholder = @Html.DisplayNameFor(model => model.UserName) })
+                </div>
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <button type="submit" class="ui blue button large">Register</button>
+            </div>
+        }
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

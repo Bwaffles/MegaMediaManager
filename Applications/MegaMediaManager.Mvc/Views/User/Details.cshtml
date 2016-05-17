@@ -1,0 +1,47 @@
+﻿@model MegaMediaManager.Mvc.Models.DisplayUser
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+
+<h2 class="ui header">
+    <div class="content">@ViewBag.Title</div>
+</h2>
+<div class="ui two column grid">
+    <div class="six wide column">
+        <div class="ui raised segment">
+            <div class="ui red ribbon label">Basic Info</div>
+            @Html.DisplayNameFor(model => model.Email):
+            @Html.DisplayFor(model => model.Email)
+        </div>
+    </div>
+    <div class="ten wide column">
+        <div class="ui raised segment">
+            <div class="ui blue ribbon label">@Html.DisplayNameFor(model => model.UserMovies)</div>
+            <div class="ui items">
+                @foreach (var item in Model.UserMovies)
+                {
+                    <div class="item">
+                        <div class="image">
+                            <img src="/images/wireframe/image.png"> @*movie poster*@
+                        </div>
+                        <div class="content">
+                            <a class="header">@Html.DisplayFor(modelItem => item.Movie.Title)</a>
+                            <div class="meta">
+                                <span>Description</span>
+                            </div>
+                            <div class="description">
+                                <p></p>
+                            </div>
+                            <div class="extra">
+                                Additional Details
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@*@Html.Partial("~\\Views\\Auth\\_Manage.cshtml")*@
