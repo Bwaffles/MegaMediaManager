@@ -85,18 +85,18 @@ namespace MegaMediaManager.Model
         public virtual List<MovieGenre> MovieGenres { get; set; }
 
         [JsonProperty("spoken_languages")]
-        public virtual ICollection<SpokenLanguage> SpokenLanguages { get; set; }
+        public virtual List<SpokenLanguage> SpokenLanguages { get; set; }
 
-        //[JsonProperty("production_companies")]
-        //public virtual ICollection<ProductionCompany> ProductionCompanies { get; set; }
+        [JsonProperty("production_companies")]
+        public virtual List<MovieProductionCompany> MovieProductionCompanies { get; set; }
 
-        //[JsonProperty("production_countires")]
-        //public virtual ICollection<ProductionCountry> ProductionCountries { get; set; }
+        [JsonProperty("production_countires")]
+        public virtual List<ProductionCountry> ProductionCountries { get; set; }
 
         [JsonProperty("alternative_titles")]
-        public virtual ICollection<AlternativeTitle> AlternativeTitles { get; set; }
+        public virtual List<AlternativeTitle> AlternativeTitles { get; set; }
 
-        public virtual ICollection<UserMovie> UserMovies { get; set; }
+        public virtual List<UserMovie> UserMovies { get; set; }
         #endregion
 
         #region Methods
