@@ -22,7 +22,7 @@ namespace MegaMediaManager.Model
         #region Navigation Properties
         public virtual List<ProductionCountry> ProductionCountry { get; set; }
         
-        public virtual List<Certification> Certification { get; set; }
+        //public virtual List<Certification> Certification { get; set; }
         #endregion
     }
 }

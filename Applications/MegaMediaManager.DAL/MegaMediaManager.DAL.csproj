@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="Configuration\AlternativeNameConfiguration.cs" />
     <Compile Include="Configuration\AlternativeTitleConfiguration.cs" />
+    <Compile Include="Configuration\CountryConfiguration.cs" />
     <Compile Include="Configuration\CreditConfiguration.cs" />
     <Compile Include="Configuration\MovieKeywordConfiguration.cs" />
     <Compile Include="Configuration\MovieGenreConfiguration.cs" />

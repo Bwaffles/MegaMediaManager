@@ -11,8 +11,8 @@ namespace MegaMediaManager.DAL.TypeConfiguration
         {
             this.ToTable("country_r");
 
-            Property(a => a.Cd).HasColumnName("code");
-            Property(a => a.Description).HasColumnName("description");
+            Property(a => a.Code).HasColumnName("code");
+            //Property(a => a.Description).HasColumnName("description");
 
             Property(a => a.DateCreated).HasColumnName("date_created");
             Property(a => a.DateModified).HasColumnName("date_modified");
