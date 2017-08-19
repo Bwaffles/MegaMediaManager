@@ -47,32 +47,32 @@ namespace MegaMediaManager.DAL
         public DbSet<UserMovieWatchReview> UserMovieWatchReview { get; set; }
         #endregion
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            #region Model Configurations
-            modelBuilder.Configurations.Add(new AlternativeNameConfiguration());
-            modelBuilder.Configurations.Add(new AlternativeTitleConfiguration());
-            modelBuilder.Configurations.Add(new CountryConfiguration());
-            modelBuilder.Configurations.Add(new CreditConfiguration());
-            modelBuilder.Configurations.Add(new DepartmentConfiguration());
-            modelBuilder.Configurations.Add(new GenreConfiguration());
-            modelBuilder.Configurations.Add(new JobConfiguration());
-            modelBuilder.Configurations.Add(new KeywordConfiguration());
-            modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add(new UserMovieConfiguration());
-            modelBuilder.Configurations.Add(new UserMovieWatchConfiguration());
-            modelBuilder.Configurations.Add(new UserMovieWatchReviewConfiguration());
-            modelBuilder.Configurations.Add(new ReviewTypeConfiguration());
-            modelBuilder.Configurations.Add(new LanguageConfiguration());
-            modelBuilder.Configurations.Add(new MovieConfiguration());
-            modelBuilder.Configurations.Add(new SpokenLanguageConfiguration());
-            modelBuilder.Configurations.Add(new MovieGenreConfiguration());
-            modelBuilder.Configurations.Add(new MovieKeywordConfiguration());
-            modelBuilder.Configurations.Add(new PersonConfiguration());
-            #endregion
-        }
+        //    #region Model Configurations
+        //    modelBuilder.Configurations.Add(new AlternativeNameConfiguration());
+        //    modelBuilder.Configurations.Add(new AlternativeTitleConfiguration());
+        //    modelBuilder.Configurations.Add(new CountryConfiguration());
+        //    modelBuilder.Configurations.Add(new CreditConfiguration());
+        //    modelBuilder.Configurations.Add(new DepartmentConfiguration());
+        //    modelBuilder.Configurations.Add(new GenreConfiguration());
+        //    modelBuilder.Configurations.Add(new JobConfiguration());
+        //    modelBuilder.Configurations.Add(new KeywordConfiguration());
+        //    modelBuilder.Configurations.Add(new UserConfiguration());
+        //    modelBuilder.Configurations.Add(new UserMovieConfiguration());
+        //    modelBuilder.Configurations.Add(new UserMovieWatchConfiguration());
+        //    modelBuilder.Configurations.Add(new UserMovieWatchReviewConfiguration());
+        //    modelBuilder.Configurations.Add(new ReviewTypeConfiguration());
+        //    modelBuilder.Configurations.Add(new LanguageConfiguration());
+        //    modelBuilder.Configurations.Add(new MovieConfiguration());
+        //    modelBuilder.Configurations.Add(new SpokenLanguageConfiguration());
+        //    modelBuilder.Configurations.Add(new MovieGenreConfiguration());
+        //    modelBuilder.Configurations.Add(new MovieKeywordConfiguration());
+        //    modelBuilder.Configurations.Add(new PersonConfiguration());
+        //    #endregion
+        //}
 
         public override System.Threading.Tasks.Task<int> SaveChangesAsync()
         {
@@ -151,6 +151,5 @@ namespace MegaMediaManager.DAL
             }
             throw new ModelValidationException(result.ToString(), e, allErrors);
         }
-
     }
 }
